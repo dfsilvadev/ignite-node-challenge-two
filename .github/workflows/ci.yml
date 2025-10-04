@@ -19,6 +19,11 @@ jobs:
           node-version-file: ".nvmrc"
           cache: "pnpm"
 
+      - name: Setup PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Install dependencies
         run: pnpm ci
 
