@@ -19,7 +19,10 @@
     "format:check": "prettier --check .",
     "lint": "eslint . ",
     "lint:fix": "eslint . --fix ",
-    "prepare": "husky"
+    "prepare": "husky",
+    "migrate:make": "npx knex migrate:make $npm_config_name",
+    "migrate:latest": "npx knex migrate:latest",
+    "migrate:rollback": "npx knex migrate:rollback --all"
   },
   "keywords": [],
   "author": "",
