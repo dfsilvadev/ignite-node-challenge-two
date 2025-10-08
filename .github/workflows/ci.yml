@@ -1,6 +1,4 @@
 name: 🐧 CI Control
-run-name: ${{ github.actor }} is running the tests and lint on GitHub Actions 🐧
-
 on:
   pull_request:
     branches: [main]
@@ -8,34 +6,33 @@ on:
 jobs:
   quality-checks:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+
+      - name: Enable Corepack & prepare pnpm
+        run: |
+          corepack enable
+          corepack prepare pnpm@9 --activate
+          pnpm -v
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: ".nvmrc"
-          cache: "npm"
+          node-version-file: .nvmrc
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install
 
-      - name: Run tests
-        run: npm run test
+      - name: Run Tests
+        run: pnpm test -- --ci
 
-      - name: Run Typescript type checking
-        run: npm run type:check
-
-      - name: Run ESLint and fix
-        run: npm run lint:fix
-
-      - name: Format with Prettier
-        run: npm run format
+      - name: Run Type check
+        run: pnpm run type:check
 
       - name: Check for remaining ESLint errors
-        run: npm run lint
+        run: pnpm run lint
 
       - name: Check for remaining formatting issues
-        run: npm run format:check
+        run: pnpm run format:check

@@ -19,14 +19,23 @@
     "format:check": "prettier --check .",
     "lint": "eslint . ",
     "lint:fix": "eslint . --fix ",
-    "prepare": "husky"
+    "prepare": "husky",
+    "migrate:make": "npx knex migrate:make $npm_config_name",
+    "migrate:latest": "npx knex migrate:latest",
+    "migrate:rollback": "npx knex migrate:rollback --all"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.17.1",
   "dependencies": {
-    "fastify": "^5.6.1"
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/cors": "^11.1.0",
+    "dotenv": "^17.2.3",
+    "fastify": "^5.6.1",
+    "knex": "^3.1.0",
+    "pg": "^8.16.3",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@eslint/js": "^9.37.0",
